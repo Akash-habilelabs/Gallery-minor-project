@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="gallery.css" />
+  </head>
+  <body>
+    <div class="gallery-container">
+      <h1>Gallery Section</h1>
+      <div class="button-container">
+        <a href="index.html"> <button>Home</button> </a>
+        <a href="liked.html"> <button>liked Photos</button> </a>
+      </div>
+      <div id="uploaded-container"></div>
+    </div>
+
+    <script>
+      let uploadedContainer = document.getElementById("uploaded-container");
+      let data = localStorage.getItem("images");
+      let images = JSON.parse(data);
+
+      //
+      let likedArray = [];
+
+      for (let i = 0; i < images.length; i++) {
+        let img = new Image();
+        img.src = images[i].image;
+        img.classList.add("image-dimensions");
+        uploadedContainer.appendChild(img);
+
+        img.ondblclick = function () {
+          if (!likedArray.includes(img.src)) {
+            likedArray.push(img.src);
+          }
+          let arrToStr = JSON.stringify(likedArray);
+          localStorage.setItem("values", arrToStr);
+        };
+      }
+
+      // console.log(likedArray);
+
+      // function likeImage(index) {
+      //   let temporary = [...images];
+      //   for (let i = 0; i < temporary.length; i++) {
+      //     if (i == index) {
+      //       temporary[i].isLiked == true;
+      //     }
+      //   }
+
+      //   console.log(temporary);
+      //   let data = JSON.stringify(temporary);
+      //   localStorage.setItem("images", data);
+      // }
+    </script>
+  </body>
+</html>

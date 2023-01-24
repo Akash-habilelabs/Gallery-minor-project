@@ -1,0 +1,14 @@
+/* .image-section{
+    height: 300px;
+    width: 200px;
+} */
+.main-container{
+    background-color: aquamarine;
+    border: 2px dotted gray;
+    padding: 10px;
+}
+
+.image-dimensions{
+    max-height: 300px;
+    max-width: 300px;
+}

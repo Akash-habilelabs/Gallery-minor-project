@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="liked.css" />
+  </head>
+  <body>
+    <div class="main-container">
+      <h1>Liked Photos</h1>
+      <div class="buttons">
+        <a href="index.html"> <button>Home</button> </a>
+        <a href="Gallery.html"> <button>Gallery</button> </a>
+      </div>
+      <div id="likedImagesContainer"></div>
+    </div>
+
+    <script>
+      let likedImagesContainer = document.getElementById(
+        "likedImagesContainer"
+      );
+      let showLikedImages = localStorage.getItem("values");
+      let content = JSON.parse(showLikedImages);
+      let newValue = [...content];
+      for (let i = 0; i < newValue.length; i++) {
+        let img = new Image();
+        img.src = newValue[i];
+        if (!newValue.includes(img.src)) {
+          continue;
+        } else {
+          img.classList.add("dimensions");
+          likedImagesContainer.appendChild(img);
+        }
+      }
+      // let likedImages = localStorage.getItem("images");
+      // let likedImagesArr = JSON.parse(likedImages);
+      // for (let i = 0; i < likedImagesArr.length; i++) {
+      //   if (likedImagesArr[i].isLiked == true) {
+      //     let img = new Image();
+      //     img.src = likedImagesArr[i].image;
+      //     img.classList.add("dimensions");
+      //   }
+      // }
+    </script>
+  </body>
+</html>

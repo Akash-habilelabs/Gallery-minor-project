@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <h1></h1>
+    <div class="main-container">
+      <input
+        type="file"
+        name=""
+        id="file-el"
+        accept="image/*"
+        multiple
+        onchange="viewImage()"
+      />
+
+      <div id="image-section" class="image-section"></div>
+      <button id="btn" onclick="uploadImage()">Upload Image</button>
+      <a href="Gallery.html"> <button>Gallery</button> </a>
+      <a href="liked.html"> <button>Liked Photos</button> </a>
+    </div>
+
+    <script src="index.js"></script>
+
+    <script>
+      let url = "";
+      let imagesContainer = document.getElementById("image-section");
+      let arr = [];
+
+      let fileEl = document.getElementById("file-el");
+      let button = document.getElementById("btn");
+
+      function viewImage() {
+        for (let i = 0; i < fileEl.files.length; i++) {
+          let reader = new FileReader();
+
+          reader.onloadend = function () {
+            url = reader.result;
+            console.log(url);
+
+            let img = new Image();
+            img.src = url;
+            img.classList.add("image-dimensions");
+            imagesContainer.appendChild(img);
+
+            arr.push({ image: url, isLiked: false });
+          };
+          reader.readAsDataURL(fileEl.files[i]);
+        }
+      }
+
+      function uploadImage() {
+        if (arr.length == 0) {
+          alert("No file Selected");
+        } else {
+          let existingData = localStorage.getItem("images");
+
+          if (existingData != null) {
+            let existingDataArr = JSON.parse(existingData);
+            let totalLength = existingDataArr.length + arr.length;
+            if (existingDataArr.length == 15) {
+              alert("Max Limit Reached");
+            } else if (totalLength > 15) {
+              let errorMessage =
+                "you can only upload " +
+                (15 - existingDataArr.length) +
+                " images";
+              alert(errorMessage);
+            } else {
+              let localImages = [...existingDataArr, ...arr];
+              let stringData = JSON.stringify(localImages);
+              console.log(stringData);
+              localStorage.setItem("images", stringData);
+            }
+          } else {
+            let localImages = [...arr];
+            let stringData = JSON.stringify(localImages);
+            console.log(stringData);
+            localStorage.setItem("images", stringData);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

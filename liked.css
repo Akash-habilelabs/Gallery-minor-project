@@ -1,0 +1,18 @@
+.main-container{
+    padding: 10px;
+    background-color: indianred;
+}
+.dimensions{
+    max-height: 250px;
+    max-width: 250px;
+}
+h1{
+    text-align: center;
+
+}
+.buttons{
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
